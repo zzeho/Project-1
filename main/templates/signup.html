@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <title>Log in</title>
+</head>
+<body>
+    <h1>Log in</h1>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div>
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                required>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required>
+        </div>
+
+        <div>
+            <label for="password_confirm">Confirm password</label>
+            <input
+                type="password"
+                id="password_confirm"
+                name="password_confirm"
+                required>
+        </div>
+
+        <button type="submit">Sign up</button>
+    </form>
+
+    <p>
+        <a href="{% url 'signup' %}">Log in</a>
+    </p>
+</body>
+</html>

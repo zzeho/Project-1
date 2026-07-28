@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+    <title>Reviews</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+
+    {% for review in reviews %}
+        <p>Title: {{ review.title }}</p>
+        <p>Rating: {{ review.rating }}/5</p>
+        <p>{{ review.content }}</p>
+    {% empty %}
+        <p>No reviews yet</p>
+    {% endfor %}
+
+{% else %}
+    <a href="{% url 'login' %}">Log in</a>
+{% endif %}
+</body>
+</html>
