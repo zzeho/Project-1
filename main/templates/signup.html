@@ -3,7 +3,7 @@
     <title>Log in</title>
 </head>
 <body>
-    <h1>Log in</h1>
+    <h1>Sign up</h1>
 
     {% if error %}
         <p>{{ error }}</p>
@@ -18,7 +18,7 @@
                 type="text"
                 id="username"
                 name="username"
-                required>
+                required><br><br>
         </div>
 
         <div>
@@ -27,7 +27,7 @@
                 type="password"
                 id="password"
                 name="password"
-                required>
+                required><br><br>
         </div>
 
         <div>
@@ -36,14 +36,14 @@
                 type="password"
                 id="password_confirm"
                 name="password_confirm"
-                required>
+                required><br><br>
         </div>
 
         <button type="submit">Sign up</button>
     </form>
 
     <p>
-        <a href="{% url 'signup' %}">Log in</a>
+        <a href="{% url 'login' %}">Log in</a>
     </p>
 </body>
 </html>

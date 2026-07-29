@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import Review
 
@@ -47,3 +47,44 @@ def login_page(request):
     # Unlimited log in tries, nothing punishing attackers for repeated failures or any delay between attempts.
     # Vulnerable to brute-force attacks
     # Fixed version: SCREENSHOT FIRST!
+
+def logout_page(request):
+    logout(request)
+    return redirect("login")
+
+def create_review(request):
+    if request.method == "POST":
+        title = request.POST.get("title", "")
+        content = request.POST.get("content", "")
+
+        if not title or not content:
+            return render(request, "create_review.html", {
+                "error": "Title and review content are required.",
+                "title": title,
+                "content": content,
+            })
+
+        Review.objects.create(title=title, content=content, user=request.user)
+
+        return redirect("index")
+
+    return render(request, "create_review.html")
+
+
+# OWASP A01: Broken Access Control
+
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id) 
+    # Only checks the review ID, no user
+    # Any logged in user is able to delete another user's reviews using developer tools (F12/Inspect on browser)
+
+    # Fixed version: 
+    # review = get_object_or_404(Review, id=review_id, user=request.user)
+    # User is included, preventing other users from deleting your post
+
+    if request.method == "POST":
+        review.delete()
+
+    return redirect("index")
+
+

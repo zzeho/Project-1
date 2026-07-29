@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <title>Review</title>
+</head>
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="title">Title</label><br>
+    <input
+        type="text"
+        id="title"
+        name="title"
+        value="{{ title }}"
+        required><br>
+
+    <br>
+
+    <label for="content">Review</label><br>
+    <textarea
+    id="content"
+    name="content"
+    required>{{ content }}</textarea><br>
+
+    <button type="submit">Create review</button>
+</form>
