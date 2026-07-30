@@ -1,13 +1,34 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db import connection
 from .models import Review
 
 # Create your views here.
 
+# A03 Injection
+
 def index(request):
-    reviews = Review.objects.all()
-    return render(request, "index.html", {"reviews": reviews})
+    search = request.GET.get("search", "")
+
+    if search:
+        query = f"""SELECT * FROM main_review
+                    WHERE title LIKE '%{search}%'"""
+
+        # Search is inserted directly into SQL allowing malicious input to be execute as commands
+        # Search becomes part of the SQL itself
+
+        # Fixed version using Django ORM:
+        # reviews = Review.objects.filter(title__icontains=search)
+
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            columns = [column[0] for column in cursor.description]
+            reviews = [dict(zip(columns, row)) for row in cursor.fetchall()]
+    else:
+        reviews = Review.objects.all()
+
+    return render(request, "index.html", {"reviews": reviews, "search": search,})
 
 def signup(request):
     if request.method == "POST":
@@ -21,7 +42,13 @@ def signup(request):
         if User.objects.filter(username=username).exists():
             return render(request, "signup.html", {"error": "Username is already taken"})
 
-        User.objects.create_user(username=username, password=password)
+        # OWASP A02: Cryptographic Failures
+        user = User(username=username, password=password)
+        user.save()
+
+
+        # Fixed version:
+        # User.objects.create_user(username=username, password=password)
 
         return redirect("login")
     
@@ -46,7 +73,12 @@ def login_page(request):
 
     # Unlimited log in tries, nothing punishing attackers for repeated failures or any delay between attempts.
     # Vulnerable to brute-force attacks
-    # Fixed version: SCREENSHOT FIRST!
+    # Fixed version:
+
+    # OWASP A09: Security Logging and Monitoring Failures:
+
+    # Security-related events are not being logged or monitored
+    
 
 def logout_page(request):
     logout(request)
@@ -86,5 +118,3 @@ def delete_review(request, review_id):
         review.delete()
 
     return redirect("index")
-
-
