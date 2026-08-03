@@ -9,6 +9,7 @@
         <p>{{ error }}</p>
     {% endif %}
 
+{% if not locked %}
     <form method="POST">
         {% csrf_token %}
 
@@ -28,6 +29,7 @@
 
         <button type="submit">Log in</button>
     </form>
+{% endif %}
 
     <p>
         <a href="{% url 'signup' %}">Sign up</a>

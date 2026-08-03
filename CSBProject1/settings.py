@@ -19,13 +19,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# OWASP A05: Security Misconfiguration
+
 SECRET_KEY = 'django-insecure-rbemgzn7zu9axsg#&f&(kd+^qgg(e!^9fof!(xqf84x7#%)5vu'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+# Fixed version:
+# DEBUG = False
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
