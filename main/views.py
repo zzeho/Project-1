@@ -101,7 +101,6 @@ def signup(request):
 #             return render(request, "signup.html", {"error": "Username is already taken"})
 
 #         User.objects.create_user(username=username, password=password)
-#         user.save()
 
 #         return redirect("login")
     
