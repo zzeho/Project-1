@@ -88,10 +88,10 @@ def signup(request):
 #         password_confirm = request.POST.get("password_confirm", "")
 
 #         if len(username) > 20:
-            return render(request, "signup.html", {"error": "Username must be 20 characters or fewer."})
+#            return render(request, "signup.html", {"error": "Username must be 20 characters or fewer."})
 
 #         if len(password) < 4 or len(password) > 25:
-            return render(request, "signup.html", {"error": "Password must be between 8 and 120 characters."})
+#            return render(request, "signup.html", {"error": "Password must be between 8 and 120 characters."})
 
 
 #         if password != password_confirm:
