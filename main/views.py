@@ -40,11 +40,6 @@ def index(request):
 
 #     if search:
 #         reviews = Review.objects.filter(title__icontains=search)
-
-#         with connection.cursor() as cursor:
-#             cursor.execute(query)
-#             columns = [column[0] for column in cursor.description]
-#             reviews = [dict(zip(columns, row)) for row in cursor.fetchall()]
 #     else:
 #         reviews = Review.objects.all()
 
