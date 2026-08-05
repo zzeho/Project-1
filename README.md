@@ -30,6 +30,6 @@ python3 manage.py migrate
 
 5. Run server
 
-´´´
+```
 python3 manage.py runserver
-´´´
+```
