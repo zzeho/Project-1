@@ -1,0 +1,53 @@
+Flaw-1-screenshots
+Before:
+
+We are logged in as "charmander" the delete button for a review made by another user is still visible.
+
+After:
+
+The button is no longer visible to us as the application now checks wether the logged-in user owns the review
+
+Flaw-2-screenshots
+Before:
+
+The screenshot shows how the password is stored in the database. It isn't hashed and the user's exact password is completely visible.
+
+After:
+
+The database shows that the password is now hashed and the original password cannot be read directly from the database anymore.
+
+Flaw-3-screenshots
+Before:
+
+In the screenshot, we insert %' OR 1=1 -- into the search form. Due to the search input being inserted directly to the query itself, the search return every review.
+
+After:
+
+The same input no longer returns the same results because Django's ORM treats it as a search data and not an executable SQL syntax.
+
+Flaw-4-screenshots
+Before:
+
+The screenshot shows a detailed error page that contains internal information such as file paths.
+
+After:
+
+With debug mode turned off, it now shows a generic server error that shows no internal information
+
+Flaw-5-screenshots
+Before:
+
+The screenshot shows that we can continuously attempt to login without any limit or lockouts.
+
+After:
+
+We are locked out from logging in due to too many failed attempts.
+
+Flaw-6-screenshots
+Before:
+
+We see very multiple request to /login/ without any answers as to why or what is going on.
+
+After:
+
+Log ins and failed logins and even attempt counts are now logged. We now see what happens between each request.

@@ -86,7 +86,7 @@ def signup(request):
 #            return render(request, "signup.html", {"error": "Username must be 20 characters or fewer."})
 
 #         if len(password) < 4 or len(password) > 25:
-#            return render(request, "signup.html", {"error": "Password must be between 8 and 120 characters."})
+#            return render(request, "signup.html", {"error": "Password must be between 4 and 25 characters."})
 
 
 #         if password != password_confirm:
@@ -145,10 +145,10 @@ def login_page(request):
 #         user = authenticate(request, username=username, password=password)
 
 #         if len(username) > 20:
-#             return render(request, "signup.html", {"error": "Invalid username or password."})
+#             return render(request, "login.html", {"error": "Invalid username or password."})
 
 #         if len(password) < 4 or len(password) > 25:
-#             return render(request, "signup.html", {"error": "Invalid username or password."})
+#             return render(request, "login.html", {"error": "Invalid username or password."})
 
 #         if user is not None:
 #             request.session["failed_attempts"] = 0
